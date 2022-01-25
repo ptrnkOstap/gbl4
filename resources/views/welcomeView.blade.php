@@ -4,6 +4,7 @@
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         @forelse ($news as $newsItem)
+{{--            {{dd($newsItem)}}--}}
             <div class="col">
                 <div class="card shadow-sm">
                     <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
@@ -15,14 +16,14 @@
 
                     <div class="card-body">
                         <div class="card-header">
-                            <a href={{ route('newsItem.show', ['id' => $newsItem[3]])}}>{{$newsItem[2]}}</a>
+                            <a href={{ route('newsItem.show', ['id' => $newsItem['id']])}}>{{$newsItem['title']}}</a>
                         </div>
-                        <p class="card-text">{{$newsItem[0]}}</p>
+                        <p class="card-text">{{$newsItem['inform']}}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
-                            <small class="text-muted">Category: {{ $newsItem[1] }}</small>
+                            <small class="text-muted">Category: {{ $newsItem['is_private'] }}</small>
                             <small class="text-muted">{{now('Europe/Moscow')}}</small>
                         </div>
                     </div>

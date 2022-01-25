@@ -7,8 +7,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
+
 
 class Controller extends BaseController
 {
@@ -27,7 +29,6 @@ class Controller extends BaseController
 
     public function __construct()
     {
-
         if (isEmpty($this->news)) {
             $this->newsInit();
         }
@@ -43,18 +44,23 @@ class Controller extends BaseController
 
     private function newsInit()
     {
-        $faker = Factory::create();
-        $newsId = 1;
-        foreach ($this->categories as $category) {
-            for ($i = 0; $i < 5; $i++) {
-                $this->news[] = [
-                    $faker->paragraph(3),
-                    $category,
-                    implode(" ", $faker->words((int)rand(1, 4))),
-                    $newsId
-                ];
-                $newsId++;
-            }
-        }
+        $res = json_decode(json_encode(DB::select('SELECT inform, is_private,title,id FROM gbl4.news')), true);
+
+        $this->news = $res;
+//        dd($this->news);
+//        $faker = Factory::create();
+//        $newsId = 1;
+//        foreach ($this->categories as $category) {
+//            for ($i = 0; $i < 5; $i++) {
+//                $this->news[] = [
+//                    $faker->paragraph(3),
+//                    $category,
+//                    implode(" ", $faker->words((int)rand(1, 4))),
+//                    $newsId
+//                ];
+//                $newsId++;
+//            }
+//        }
+
     }
 }
