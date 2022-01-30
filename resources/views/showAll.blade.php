@@ -4,11 +4,11 @@
         @forelse ($news as $newsItem)
             <div class="news_item">
                 <h3 class="news_item_header"><a
-                        href={{route('newsItem.show', ['id' => $newsItem[3]])}} > {{$newsItem[2]}} </a></h3>
+                        href={{route('newsItem.show', ['id' => $newsItem['id']])}} > {{$newsItem['title']}} </a></h3>
                 <p class="news_item_text">
-                {{$newsItem[0]}}
+                {{$newsItem['inform']}}
                 <p class="news_item_category">
-                    <strong> Category: {{$newsItem[1]}} </strong>
+                    <strong> Category: {{$newsItem['category']}} </strong>
                 </p>
                 </p>
             </div>

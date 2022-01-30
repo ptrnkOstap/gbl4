@@ -27,8 +27,9 @@ Route::get('/categories', [CategoryController::class, 'listCategories'])->name('
 Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
 Route::get('/show_single/{id}', [ShowSingleController::class, 'index'])->name('newsItem.show');
 Route::get('/show_all', [NewsController::class, 'index'])->name('newsItem.showAll');
-//Route::resource('/feed_back', FeedBackController::class)->name('index','feedBack.index');
-//Route::resource('/feed_back', FeedBackController::class)->name('create','feedBack.create');
+
+Route::resource('/admin', App\Http\Controllers\Admin\NewsController::class);
+
 
 Route::resource('/feed_back', FeedBackController::class)->only(['index', 'store']);
 Route::resource('/feed_back', FeedBackController::class)->name('store', 'feedBack.store');

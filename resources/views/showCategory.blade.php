@@ -1,18 +1,18 @@
 @extends('layouts/secondary')
 @section('content')
 
-    <h1>Category : <strong> {{$category = end($filtered)[1]}} </strong></h1>
+    <h1>Category : <strong> {{$category = end($filtered)['category']}} </strong></h1>
     <h2>Here's what we have found</h2>
 
     <article class="random_news">
 
         @forelse($filtered as $newsItem)
             <div class="news_item">
-               <a href="{{route('newsItem.show',$newsItem[3])}}"><h3 class="news_item_header">{{$newsItem[2]}}</h3></a>
+               <a href="{{route('newsItem.show',$newsItem['id'])}}"><h3 class="news_item_header">{{$newsItem['title']}}</h3></a>
                 <p class="news_item_text">
-                {{$newsItem[0] }}
+                {{$newsItem['inform'] }}
                 <p class="news_item_category">
-                    <strong> Category: {{$newsItem[1]}} </strong>
+                    <strong> Category: {{$newsItem['category']}} </strong>
                 </p>
                 </p>
             </div>

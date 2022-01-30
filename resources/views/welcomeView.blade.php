@@ -23,8 +23,8 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             </div>
-                            <small class="text-muted">Category: {{ $newsItem['is_private'] }}</small>
-                            <small class="text-muted">{{now('Europe/Moscow')}}</small>
+                            <small class="text-muted">Category: {{ $newsItem['category'] }}</small>
+                            <small class="text-muted">{{{ $newsItem['created_at'] }}}</small>
                         </div>
                     </div>
                 </div>

@@ -44,9 +44,21 @@ class Controller extends BaseController
 
     private function newsInit()
     {
-        $res = json_decode(json_encode(DB::select('SELECT inform, is_private,title,id FROM gbl4.news')), true);
+        $res = json_encode(DB::
+        select('SELECT
+                       news.inform,
+                       news.is_private,
+                       news.title,
+                       news.id as id,
+                       news.created_at,
+                       news.updated_at,
+                        news.category_id as category_id,
+                       nc.category
+                    FROM gbl4.news
+                    inner join news_categories nc on news.category_id = nc.id
+                    '));
 
-        $this->news = $res;
+        $this->news = json_decode($res, true);
 //        dd($this->news);
 //        $faker = Factory::create();
 //        $newsId = 1;

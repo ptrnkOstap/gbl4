@@ -16,7 +16,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-
+    @yield('Head');
 
     <style>
         .bd-placeholder-img {
@@ -82,7 +82,7 @@
 
     <section class="py-5 text-center container">
         @if (session('feedBackSent'))
-            <div class="alert alert-success" >{{session('feedBackSent')}}</div>
+            <div class="alert alert-success">{{session('feedBackSent')}}</div>
         @endif
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">

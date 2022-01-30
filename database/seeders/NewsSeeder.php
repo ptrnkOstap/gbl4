@@ -29,6 +29,7 @@ class NewsSeeder extends Seeder
                 'title' => $faker->sentence(rand(3, 10)),
                 'inform' => $faker->realText(rand(100, 200)),
                 'is_private' => (boolean)rand(0, 1),
+                'category_id' => $faker->numberBetween(1, 7),
                 'created_at' => now('Europe/Moscow')
             ];
         }

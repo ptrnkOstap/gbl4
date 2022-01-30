@@ -20,6 +20,8 @@ class CreateNewsTable extends Migration
             $table->boolean('is_private')
                 ->default(true)
                 ->comment('Does it available for a not authorized user');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('news_categories');
             $table->timestamps();
         });
     }
