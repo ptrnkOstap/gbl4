@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\WelcomeController;
+use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\ShowSingleController;
+use \App\Http\Controllers\NewsController;
+use \App\Http\Controllers\FeedBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', [WelcomeController::class, 'Index'])->name('welcome.index');
+Route::get('/categories', [CategoryController::class, 'listCategories'])->name('category.listCategories');
+Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
+Route::get('/show_single/{id}', [ShowSingleController::class, 'index'])->name('newsItem.show');
+Route::get('/show_all', [NewsController::class, 'index'])->name('newsItem.showAll');
+
+Route::resource('/admin', App\Http\Controllers\Admin\NewsController::class);
+
+
+Route::resource('/feed_back', FeedBackController::class)->only(['index', 'store']);
+Route::resource('/feed_back', FeedBackController::class)->name('store', 'feedBack.store');
