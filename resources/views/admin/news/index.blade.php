@@ -20,7 +20,7 @@
                 <td><p>{{$newsItem['id']}}</p></td>
                 <td><a href="{{ route('newsItem.show', ['news' => $newsItem['id']])}}">View</a>&nbsp;| &nbsp;<a
                         {{--                        {{dd($newsItem['id'])}}--}}
-{{--                        href="{{ route('admin.edit',['news'=>$newsItem])}} ">Edit</a>--}}
+                        href="{{ route('admin.news.edit',['news'=>$newsItem])}} ">Edit</a>
                 </td>
                 <td>{{$newsItem['category']->category}}</td>
                 <td>{{$newsItem['title']}}</td>
