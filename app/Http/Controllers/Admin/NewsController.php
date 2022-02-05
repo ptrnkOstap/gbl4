@@ -1,5 +1,5 @@
 <?php
-
+//hw 7 init commit
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -86,7 +86,6 @@ class NewsController extends Controller
         // не подскажете в чем дело?
 
         return view('admin.news.edit', ['news' => $news]);
-
 
     }
 
