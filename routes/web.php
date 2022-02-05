@@ -6,6 +6,8 @@ use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ShowSingleController;
 use \App\Http\Controllers\NewsController;
 use \App\Http\Controllers\FeedBackController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +24,20 @@ use \App\Http\Controllers\FeedBackController;
 //    return view('welcome');
 //});
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+//    Route::view('/', 'admin.news.index')->name('index');
+    Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/news', AdminNewsController::class);
+});
+
 Route::get('/', [WelcomeController::class, 'Index'])->name('welcome.index');
 Route::get('/categories', [CategoryController::class, 'listCategories'])->name('category.listCategories');
 Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
-Route::get('/show_single/{id}', [ShowSingleController::class, 'index'])->name('newsItem.show');
+Route::get('/show_single/{news}', [ShowSingleController::class, 'index'])->name('newsItem.show');
+//Route::get('/show_single/{news}', [NewsController::class, 'showSingle'])->name('newsItem.show');
 Route::get('/show_all', [NewsController::class, 'index'])->name('newsItem.showAll');
 
-Route::resource('/admin', App\Http\Controllers\Admin\NewsController::class);
+//Route::resource('admin', AdminNewsController::class);
 
 
 Route::resource('/feed_back', FeedBackController::class)->only(['index', 'store']);

@@ -77,8 +77,9 @@
                 <h1 class="h2">Dashboard</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                        <a href="{{route('admin.news.create')}}" class="btn btn-sm btn-outline-secondary">Create a news
+                            entry</a>
+                        {{--                        <button class="btn btn-sm btn-outline-secondary">Export</button>--}}
                     </div>
                 </div>
             </div>
