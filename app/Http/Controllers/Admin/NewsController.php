@@ -1,5 +1,5 @@
 <?php
-//hw 7 init commit
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -79,13 +79,14 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        // Добрый день, у меня проблемы с редактированием существующей записи.
-        // если раскомментить ссылку на редакктирование, то получаю эту ошибку -
-        // Route [admin.edit] not defined. (View: /var/www/html/resources/views/admin/news/index.blade.php)
+        //заработало :) надо было просто поиграть минут 40 и перезапустить проект
 
         // не подскажете в чем дело?
-
-        return view('admin.news.edit', ['news' => $news]);
+        $categories = Categories::all();
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories,
+            'selectCategories' => [$news->category_id]]);
 
     }
 
@@ -96,22 +97,27 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
+//        $newsEntry = News::query()->with('category')->select()->where('id', '=', $news->id)->get();
+        $newsEntry = News::find($news->id);
+//        dd($newsEntry);
         $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
-
-        $newsEntry = new News;
-
+//        dd($params);
         $newsEntry->title = $params['news_title'];
         $newsEntry->inform = $params['news_content'];
         $newsEntry->is_private = +$params['is_visible'];
         $newsEntry->category_id = +array_pop($params['categories']);
 
-        $newsEntry->save();
+        if ($newsEntry->save()) {
+            return redirect()->
+            route('admin.news.index')->
+            with('newsUpdate', 'ok');
+        };
 
         return redirect()->
-        route('admin.index')->
-        with('newsCreated', 'A news entry has been created.');
+        route('admin.news.index')->
+        with('newsCreated', 'error');
     }
 
     /**
