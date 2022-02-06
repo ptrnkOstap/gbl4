@@ -46,7 +46,9 @@ class NewsController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
+//        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
+        $params = $request->validated();
+
         $newsEntry = new News;
 
         $newsEntry->title = $params['news_title'];

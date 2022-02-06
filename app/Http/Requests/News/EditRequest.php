@@ -41,7 +41,8 @@ class EditRequest extends FormRequest
         return [
             'news_title' => '\'Заголовок новости\'',
             'is_visible' => '\'Отображать новость или нет\'',
-            'categories' => '\'Категория\''
+            'categories' => '\'Категория\'',
+            'news_content'=>'\'Содержание новости\''
         ];
     }
 }
