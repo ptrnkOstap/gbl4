@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\CreateRequest;
+use App\Http\Requests\News\EditRequest;
 use App\Models\Categories;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -39,10 +41,10 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
         $newsEntry = new News;
@@ -79,9 +81,7 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //заработало :) надо было просто поиграть минут 40 и перезапустить проект
 
-        // не подскажете в чем дело?
         $categories = Categories::all();
         return view('admin.news.edit', [
             'news' => $news,
@@ -93,17 +93,16 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param EditRequest $request
+     * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(EditRequest $request, News $news)
     {
-//        $newsEntry = News::query()->with('category')->select()->where('id', '=', $news->id)->get();
+        $params = $request->validated();
+//        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
+
         $newsEntry = News::find($news->id);
-//        dd($newsEntry);
-        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
-//        dd($params);
         $newsEntry->title = $params['news_title'];
         $newsEntry->inform = $params['news_content'];
         $newsEntry->is_private = +$params['is_visible'];

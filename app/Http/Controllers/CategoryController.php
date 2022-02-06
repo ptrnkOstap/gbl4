@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -17,8 +18,9 @@ class CategoryController extends Controller
         return view('showCategory', ['filtered' => $filtered]);
     }
 
-//    public function listCategories()
-//    {
-//        return view('displayCategories', ['categories' => $this->categories]);
-//    }
+    public function listCategories()
+    {
+        $categories = Categories::all();
+        return view('displayCategories', ['categories' => $categories]);
+    }
 }

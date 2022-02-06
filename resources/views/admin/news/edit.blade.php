@@ -34,6 +34,7 @@
         <div class="form-group">
             <label for="news_content">News content</label>
             <textarea class="form-control" name="news_content" id="news_content">{!! $news->inform !!}</textarea>
+            @error('news_content') <strong style="color:red;">{{ $message }}</strong> @enderror
         </div>
         <br>
         <button type="submit" class="btn btn-success" style="float:right;">update</button>

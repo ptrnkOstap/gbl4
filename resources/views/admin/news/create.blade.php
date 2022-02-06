@@ -8,7 +8,9 @@
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->category }}</option>
                 @endforeach
+{{--                <option value="33">validation test value - 33</option>--}}
             </select>
+            @error('categories') <strong style="color:red;">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
             <label for="is_visible">Is visible:</label><br>
@@ -18,14 +20,20 @@
                 <option @if(old('is_private')===0) selected @endif value="0">Blocked</option>
             </select>
         </div>
-        <label for="news_title">News title:</label>
-        <input type="text" class="form-control" id="news_title" name="news_title" value="{{old('title')}}">
+        <div class="form-group">
+            <label for="news_title">News title:</label>
+            <input type="text" class="form-control" id="news_title" name="news_title" value="{{old('title')}}">
+            @error('news_title') <strong style="color:red;">{{ $message }}</strong> @enderror
+        </div>
+        <div class="form-group">
+            <label for="news_content">News content</label>
+            <textarea name="news_content" class="form-control" id="news_content" cols="30"
+                      rows="10">{!! old('inform') !!}</textarea>
+            <br>
+            @error('news_content') <strong style="color:red;">{{$message}}</strong> @enderror
+        </div>
+        <input type="submit" class="btn btn-success" value="create">
 
-        <label for="news_content">News content</label>
-        <textarea name="news_content" class="form-control" id="news_content" cols="30"
-                  rows="10">{!! old('inform') !!}</textarea>
-        <br>
-        <input type="submit" class="btn btn-success">
     </form>
 @endsection
 
