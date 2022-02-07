@@ -5,6 +5,7 @@
         <thead>
         <tr>
             <th>News ID</th>
+            <th>Actions</th>
             <th>Category</th>
             <th>Title</th>
             <th>Visibility</th>
@@ -15,8 +16,13 @@
         <tbody>
         @forelse($news as $newsItem)
             <tr>
-                <td><a href={{ route('newsItem.show', ['id' => $newsItem['id']])}}>{{$newsItem['id']}}</a></td>
-                <td>{{$newsItem['category']}}</td>
+                {{--                                {{dd($newsItem->id)}}--}}
+                <td><p>{{$newsItem['id']}}</p></td>
+                <td><a href="{{ route('newsItem.show', ['news' => $newsItem['id']])}}">View</a>&nbsp;| &nbsp;<a
+                        {{--                        {{dd($newsItem['id'])}}--}}
+                        href="{{ route('admin.news.edit',['news'=>$newsItem])}} ">Edit</a>
+                </td>
+                <td>{{$newsItem['category']->category}}</td>
                 <td>{{$newsItem['title']}}</td>
                 <td>{{$newsItem['is_private']}}</td>
                 <td>{{$newsItem['created_at']}}</td>
@@ -27,5 +33,6 @@
             <h2>There are no news entries</h2>
         @endforelse
     </table>
+    {{ $news->links() }}
 
 @endsection
