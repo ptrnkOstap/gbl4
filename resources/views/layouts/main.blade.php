@@ -16,7 +16,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    @yield('Head');
+    @yield('Head')
 
     <style>
         .bd-placeholder-img {
@@ -70,6 +70,7 @@
                 </svg>
                 <strong>Album</strong>
             </a>
+            <a class="btn btn-info" href={{route('admin.news.index')}}>admin area</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
