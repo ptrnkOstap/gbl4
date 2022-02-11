@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'is_s_admin'
     ];
 
     /**
@@ -43,4 +45,11 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
         'is_s_admin' => 'boolean'
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = password_hash($value, PASSWORD_BCRYPT);
+    }
+
+
 }

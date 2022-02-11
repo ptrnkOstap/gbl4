@@ -9,6 +9,7 @@ use \App\Http\Controllers\NewsController;
 use \App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +26,14 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 //    return view('welcome');
 //});
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware'=>'CheckIfAdmin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'CheckIfAdmin'], function () {
     Route::view('/', 'admin.news.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
+    Route::resource('/users', AdminUsersController::class);
 });
 
-Route::get('/', [WelcomeController::class, 'Index'])->name('index');
+Route::get('/', [WelcomeController::class, 'Index'])->name('welcome.index');
 Route::get('/categories', [CategoryController::class, 'listCategories'])->name('category.listCategories');
 Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
 Route::get('/show_single/{news}', [ShowSingleController::class, 'index'])->name('newsItem.show');
