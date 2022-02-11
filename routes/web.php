@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\CategoryController;
@@ -20,17 +21,17 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 |
 */
 
-Route::get('/default_welcome', function () {
-    return view('welcome');
-});
+//Route::get('/default_welcome', function () {
+//    return view('welcome');
+//});
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware'=>'CheckIfAdmin'], function () {
     Route::view('/', 'admin.news.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
 });
 
-Route::get('/', [WelcomeController::class, 'Index'])->name('welcome.index');
+Route::get('/', [WelcomeController::class, 'Index'])->name('index');
 Route::get('/categories', [CategoryController::class, 'listCategories'])->name('category.listCategories');
 Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
 Route::get('/show_single/{news}', [ShowSingleController::class, 'index'])->name('newsItem.show');
