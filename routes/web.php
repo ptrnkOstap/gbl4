@@ -20,9 +20,9 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/default_welcome', function () {
+    return view('welcome');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::view('/', 'admin.news.index')->name('index');
@@ -42,3 +42,7 @@ Route::get('/show_all', [NewsController::class, 'index'])->name('newsItem.showAl
 
 Route::resource('/feed_back', FeedBackController::class)->only(['index', 'store']);
 Route::resource('/feed_back', FeedBackController::class)->name('store', 'feedBack.store');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
