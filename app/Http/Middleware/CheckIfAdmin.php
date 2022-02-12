@@ -18,9 +18,9 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::User()->is_admin or !Auth::User()->is_s_admin) {
-            return redirect()->route('welcome.index');
-        }
+//        if (!Auth::user()?->is_admin or !Auth::user()?->is_s_admin) {
+//            return redirect()->route('welcome.index');
+//        }
 
         return $next($request);
     }
