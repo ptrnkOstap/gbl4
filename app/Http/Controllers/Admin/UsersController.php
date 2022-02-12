@@ -68,7 +68,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+//        dd($user);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -80,7 +81,16 @@ class UsersController extends Controller
      */
     public function update(EditRequest $request, User $user)
     {
-        //
+
+        $getUser = User::find($user->id);
+//        dd($request->validated());
+        $update = $getUser->fill($request->validated())->save();
+
+//        dd($update);
+        if ($update) {
+            return redirect()->route('admin.users.index')->with('updateUser', 'ok');
+        }
+
     }
 
     /**

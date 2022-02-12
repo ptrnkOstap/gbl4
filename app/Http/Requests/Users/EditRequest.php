@@ -24,7 +24,10 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'min:6', 'max:50'],
+            'email' => ['required', 'min:3', 'max:50'],
+            'is_admin' => ['required', 'integer', 'between:0,1'],
+            'is_s_admin' => ['required', 'integer', 'between:0,1']
         ];
     }
 }

@@ -27,8 +27,8 @@ class CreateRequest extends FormRequest
             'name' => ['required', 'string', 'min:6', 'max:50'],
             'email' => ['required', 'unique:users,email', 'min:3', 'max:50'],
             'password' => ['required'],
-//            'is_admin' => ['required', 'integer', 'between:0,1'],
-//            'is_s_admin' => ['required', 'integer', 'between:0,1']
+            'is_admin' => ['required', 'integer', 'between:0,1'],
+            'is_s_admin' => ['required', 'integer', 'between:0,1']
         ];
     }
 }
