@@ -21,7 +21,10 @@
             {{--            </div>--}}
             <div class="form-group">
                 <label for="is_admin">Make admin</label>
-                <input type="string" name="is_admin" id="is_admin" value={{old($user->is_admin)??$user->is_admin}}>
+                <select type="text" name="is_admin" id="is_admin">
+                    <option @if($user->is_admin===1) selected @endif value="1">true</option>
+                    <option @if($user->is_admin===0) selected @endif value="0">false</option>
+                </select>
                 @error('is_admin') <strong style="color:red;">{{ $message }}</strong>@enderror
             </div>
             <div class="form-group">
