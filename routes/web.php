@@ -11,6 +11,7 @@ use \App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Admin\ParsingController as AdminParseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'CheckIfAdmin'], function () {
 //    Route::view('/', 'admin.news.index')->name('index');
+    Route::get('/parse', AdminParseController::class)->name('parse');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
     Route::resource('/users', AdminUsersController::class);
