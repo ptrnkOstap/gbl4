@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\SocialController;
 use \App\Http\Controllers\WelcomeController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ShowSingleController;
@@ -33,14 +34,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'CheckIfAdm
     Route::resource('/users', AdminUsersController::class);
 });
 
+Route::group(['middleware' => 'guest', 'prefix' => 'auth', 'as' => 'social.'], function () {
+    Route::get('/{network}/redirect', [SocialController::class, 'redirect'])
+        ->name('redirect');
+    Route::get('/{network}/callback', [SocialController::class, 'callback'])
+        ->name('callback');
+});
+
 Route::get('/', [WelcomeController::class, 'Index'])->name('welcome.index');
 Route::get('/categories', [CategoryController::class, 'listCategories'])->name('category.listCategories');
 Route::get('/show_category/{category}', [CategoryController::class, 'index'])->name('category.show');
 Route::get('/show_single/{news}', [ShowSingleController::class, 'index'])->name('newsItem.show');
-//Route::get('/show_single/{news}', [NewsController::class, 'showSingle'])->name('newsItem.show');
 Route::get('/show_all', [NewsController::class, 'index'])->name('newsItem.showAll');
-
-//Route::resource('admin', AdminNewsController::class);
 
 
 Route::resource('/feed_back', FeedBackController::class)->only(['index', 'store']);
