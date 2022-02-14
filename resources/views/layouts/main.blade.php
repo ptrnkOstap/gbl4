@@ -16,7 +16,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    @yield('Head');
+    @yield('Head')
 
     <style>
         .bd-placeholder-img {
@@ -70,11 +70,44 @@
                 </svg>
                 <strong>Album</strong>
             </a>
+            @if(\Illuminate\Support\Facades\Auth::User()?->is_admin or \Illuminate\Support\Facades\Auth::User()?->is_s_admin )
+                <a class="btn btn-info"
+                   href={{route('admin.news.index')}}>admin
+                    area</a> @endif
+            <div class="d-inline">
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <a class="btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    @endif
+
+                    @if (Route::has('register'))
+                        <a class="btn btn-outline-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
+                @else
+                    <div class="d-flex">
+                        <p class="text-center text-wrap text-white" style="padding: 5px">
+                            Logged as <b>{{ Auth::user()->name }}</b>
+                        </p>
+                        <a class="btn btn-sm btn-success" style="height: 40px; margin:10px" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
+                    </div>
+                @endguest
+            </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
         </div>
+
     </div>
 </header>
 

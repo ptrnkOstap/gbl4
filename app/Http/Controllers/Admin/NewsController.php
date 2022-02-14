@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\CreateRequest;
+use App\Http\Requests\News\EditRequest;
+use App\Models\Categories;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -14,9 +18,13 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $res = json_encode($this->news);
-        $news = json_decode($res, true);
-        return view('admin.index', ['news' => $news]);
+//        $news = News::query()->get();
+//        $news = json_decode($res, true);
+
+        $news = News::query()->with('category');
+//        dd($this->news->paginate(13));
+        return view('admin.news.index', ['news' => $news->paginate(13)]);
+//        return view('admin.index', ['news' => $this->news->get()]);
     }
 
     /**
@@ -26,18 +34,33 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Categories::all();
+        return view('admin.news.create', ['categories' => $categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+//        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
+        $params = $request->validated();
+
+        $newsEntry = new News;
+
+        $newsEntry->title = $params['news_title'];
+        $newsEntry->inform = $params['news_content'];
+        $newsEntry->is_private = +$params['is_visible'];
+        $newsEntry->category_id = +array_pop($params['categories']);
+
+        $newsEntry->save();
+
+        return redirect()->
+        route('admin.news.index')->
+        with('newsCreated', 'A news entry has been created.');
     }
 
     /**
@@ -46,8 +69,9 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
+
         //
     }
 
@@ -57,21 +81,44 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        //
+
+        $categories = Categories::all();
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories,
+            'selectCategories' => [$news->category_id]]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param EditRequest $request
+     * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, News $news)
     {
-        //
+        $params = $request->validated();
+//        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
+
+        $newsEntry = News::find($news->id);
+        $newsEntry->title = $params['news_title'];
+        $newsEntry->inform = $params['news_content'];
+        $newsEntry->is_private = +$params['is_visible'];
+        $newsEntry->category_id = +array_pop($params['categories']);
+
+        if ($newsEntry->save()) {
+            return redirect()->
+            route('admin.news.index')->
+            with('newsUpdate', 'ok');
+        };
+
+        return redirect()->
+        route('admin.news.index')->
+        with('newsCreated', 'error');
     }
 
     /**
