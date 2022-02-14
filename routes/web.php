@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'CheckIfAdm
     Route::resource('/users', AdminUsersController::class);
 });
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\lfm::routes();
+});
+
 Route::group(['middleware' => 'guest', 'prefix' => 'auth', 'as' => 'social.'], function () {
     Route::get('/{network}/redirect', [SocialController::class, 'redirect'])
         ->name('redirect');

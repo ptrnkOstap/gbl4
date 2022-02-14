@@ -1,6 +1,7 @@
 @extends('layouts.admin')
+
 @section('content')
-    <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}">
+    <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="form-group">
@@ -39,4 +40,12 @@
         <br>
         <button type="submit" class="btn btn-success" style="float:right;">update</button>
     </form>
+@endsection
+@section('js')
+    <script src="{{asset('ckeditor5-build-classic-32.0.0/ckeditor5-build-classic/ckeditor.js')}}"></script>
+    <script>
+        ClassicEditor.create(document.querySelector('#news_content')).catch(error => {
+            console.error(error);
+        })
+    </script>
 @endsection

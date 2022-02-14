@@ -36,4 +36,11 @@
 
     </form>
 @endsection
-
+@section('js')
+    <script src="{{asset('ckeditor5-build-classic-32.0.0/ckeditor5-build-classic/ckeditor.js')}}"></script>
+    <script>
+        ClassicEditor.create(document.querySelector('#news_content')).catch(error => {
+            console.error(error);
+        })
+    </script>
+@endsection

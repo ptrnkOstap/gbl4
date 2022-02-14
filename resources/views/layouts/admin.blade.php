@@ -12,8 +12,8 @@
     <link href="{{asset('css/admin/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{{asset('css/admin/admin.css')}}" rel="stylesheet">
-</head>
 
+</head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{route('welcome.index')}}">to welcome page</a>
@@ -39,7 +39,8 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('admin.news.index')) active @endif" href="{{route('admin.news.index')}}">
+                        <a class="nav-link @if (request()->routeIs('admin.news.index')) active @endif"
+                           href="{{route('admin.news.index')}}">
                             <span data-feather="home"></span>
                             Main admin area
                         </a>
@@ -51,7 +52,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('admin.users.index')) active @endif" href="{{route('admin.users.index')}}">
+                        <a class="nav-link @if (request()->routeIs('admin.users.index')) active @endif"
+                           href="{{route('admin.users.index')}}">
                             <span data-feather="user"></span>
                             View users
                         </a>
@@ -83,43 +85,11 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
-
+@yield('js')
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-</script>
-
-<!-- Graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
 </script>
 <script src={{asset('js/bootstrap.bundle.min.js')}} ></script>
 </body>
