@@ -29,7 +29,8 @@ class CreateRequest extends FormRequest
             'news_title' => ['required', 'string', 'min:3'],
             'is_visible' => ['required', 'integer', 'between:0,1'],
             'news_content' => ['required', 'string', 'min:10', 'max:500'],
-            'categories' => ['required', 'exists:news_categories,id']
+            'categories' => ['required', 'exists:news_categories,id'],
+            'image' => ['nullable','file','image']
         ];
     }
 

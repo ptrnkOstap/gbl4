@@ -8,7 +8,7 @@
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->category }}</option>
                 @endforeach
-{{--                <option value="33">validation test value - 33</option>--}}
+                {{--                <option value="33">validation test value - 33</option>--}}
             </select>
             @error('categories') <strong style="color:red;">{{ $message }}</strong> @enderror
         </div>
@@ -30,7 +30,7 @@
             <textarea name="news_content" class="form-control" id="news_content" cols="30"
                       rows="10">{!! old('inform') !!}</textarea>
             <br>
-            @error('news_content') <strong style="color:red;">{{$message}}</strong> @enderror
+            @error('news_content') <strong style="color:red;">{!!$message!!}</strong> @enderror
         </div>
         <input type="submit" class="btn btn-success" value="create">
 

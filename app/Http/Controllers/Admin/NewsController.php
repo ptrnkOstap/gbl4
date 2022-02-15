@@ -7,6 +7,7 @@ use App\Http\Requests\News\CreateRequest;
 use App\Http\Requests\News\EditRequest;
 use App\Models\Categories;
 use App\Models\News;
+use App\Services\UploadService;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -54,7 +55,7 @@ class NewsController extends Controller
         $newsEntry->title = $params['news_title'];
         $newsEntry->inform = $params['news_content'];
         $newsEntry->is_private = +$params['is_visible'];
-        $newsEntry->category_id = +array_pop($params['categories']);
+        $newsEntry->category_id = $params['categories'];
 
         $newsEntry->save();
 
@@ -88,7 +89,7 @@ class NewsController extends Controller
         return view('admin.news.edit', [
             'news' => $news,
             'categories' => $categories,
-            'selectCategories' => [$news->category_id]]);
+            'selectedCategory' => $news->category_id]);
 
     }
 
@@ -102,13 +103,16 @@ class NewsController extends Controller
     public function update(EditRequest $request, News $news)
     {
         $params = $request->validated();
-//        $params = $request->only(['is_visible', 'news_title', 'news_content', 'categories']);
 
         $newsEntry = News::find($news->id);
         $newsEntry->title = $params['news_title'];
         $newsEntry->inform = $params['news_content'];
+
+        if ($request->hasFile('image')) {
+            $newsEntry->image = app(UploadService::class)->loadFile($request->file('image'));
+        }
         $newsEntry->is_private = +$params['is_visible'];
-        $newsEntry->category_id = +array_pop($params['categories']);
+        $newsEntry->category_id = $params['categories'];
 
         if ($newsEntry->save()) {
             return redirect()->

@@ -7,10 +7,10 @@
         <div class="form-group">
             <label for="categories">Category</label>
 
-            <select class="form-control" name="categories[]" id="categories">
+            <select class="form-control" name="categories" id="categories">
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}"
-                            @if(in_array($category->id, $selectCategories)) selected @endif
+                            @if($category->id === $selectedCategory) selected @endif
                     >{{ $category->category }}</option>
                 @endforeach
             </select>
@@ -33,9 +33,14 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="image">Upload an image:</label><br>
+            <img src="{{Storage::disk('public')->url($news->image)}}" style="width:250px;margin: 8px;">
+            <input type="file" class="form-control" name="image" id="image">
+        </div>
+        <div class="form-group">
             <label for="news_content">News content</label>
             <textarea class="form-control" name="news_content" id="news_content">{!! $news->inform !!}</textarea>
-            @error('news_content') <strong style="color:red;">{{ $message }}</strong> @enderror
+            @error('news_content') <strong style="color:red;">{!! $message !!}</strong> @enderror
         </div>
         <br>
         <button type="submit" class="btn btn-success" style="float:right;">update</button>
@@ -43,6 +48,14 @@
 @endsection
 @section('js')
     <script src="{{asset('ckeditor5-build-classic-32.0.0/ckeditor5-build-classic/ckeditor.js')}}"></script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
     <script>
         ClassicEditor.create(document.querySelector('#news_content')).catch(error => {
             console.error(error);
