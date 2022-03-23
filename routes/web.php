@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\ParsingController as AdminParseController;
 //Route::get('/default_welcome', function () {
 //    return view('welcome');
 //});
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'CheckIfAdmin'], function () {
 //    Route::view('/', 'admin.news.index')->name('index');
     Route::get('/parse', AdminParseController::class)->name('parse');
@@ -59,4 +59,4 @@ Route::resource('/feed_back', FeedBackController::class)->name('store', 'feedBac
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

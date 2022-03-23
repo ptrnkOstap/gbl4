@@ -9,7 +9,7 @@ class UploadService
     public function loadFile(UploadedFile $file):string
     {
         $fileName = $file->hashName();
-        $fileLoaded = $file->storeAs('news', $fileName, 'public');
+        $fileLoaded = $file->storeAs('news', $fileName);
         if (!$fileLoaded) {
             throw new \Exception('File wasn\'t uploaded');
         }

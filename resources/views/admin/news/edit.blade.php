@@ -34,8 +34,12 @@
         </div>
         <div class="form-group">
             <label for="image">Upload an image:</label><br>
-            <img src="{{Storage::disk('public')->url($news->image)}}" style="width:250px;margin: 8px;">
-            <input type="file" class="form-control" name="image" id="image">
+{{--            {{Illuminate\Support\Facades\Storage::disk('public')->url($news->image)}}--}}
+            <img src="{{Illuminate\Support\Facades\Storage::disk('public')->url($news->image)}}" alt="pic"
+                 style="width: 200px;height: 200px;">
+            {{--            {{\Illuminate\Support\Facades\Storage::disk('public')->url($news->image)}}--}}
+            <input type="file" class="form-control-file" name="image" id="image">
+            @error('image') <strong style="color:red;">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
             <label for="news_content">News content</label>
