@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'is_s_admin'
     ];
 
     /**
@@ -40,5 +42,14 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
+        'is_s_admin' => 'boolean'
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = password_hash($value, PASSWORD_BCRYPT);
+    }
+
+
 }
